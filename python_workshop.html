@@ -1,0 +1,631 @@
+<html>
+<head>
+	<link href="https://fonts.googleapis.com/css?family=Lato|Merriweather|Muli|Raleway|Ubuntu" rel="stylesheet"> 
+	<link rel="stylesheet" href="highlight.css">
+
+	<script src="jquery.js"></script>
+	<script src="highlight.min.js"></script>
+	<style>
+* {
+	font-family: 'Raleway';
+	font-size: 24px;
+	line-height: 1.4em;
+}
+body {
+
+    overflow: hidden;
+}
+h1 {
+	margin-top: 0.2em;
+	margin-bottom: 0.4em;
+	font-size: 2.5em;
+}
+pre {
+	font-family: Courier;
+}
+p {
+	margin-bottom: 10px;
+}
+ul {
+	margin: 0;
+}
+li {
+	font-size: 20px;
+	margin-top:4px;
+}
+.centered-img {
+	margin: auto;
+	display: block;
+}
+.image-set {
+	display:flex;
+}
+.image-set img {
+	margin: 10px;
+	height: auto;
+}
+#main-container {
+	display: flex;
+	height: 100%;
+}
+#left-container {
+	width: 60%;
+	height: 100%;
+	padding: 15px;
+	overflow: auto;
+	padding-bottom: 0px;
+}
+#right-container {
+	width: 50%;
+	height: 100%;
+	padding: 5px;
+}
+iframe {
+	display: block;
+	width: 100%;
+	height: 100%;
+	border: 0;
+}
+.slide {
+	display: none;
+}
+table {
+	border: 0;
+}
+td {
+	padding: 10px;
+}
+.inline-code, pre {
+	background-color: #ccc;
+	font-family: Courier;
+	border: 1px solid #888;
+	padding-right: 4px;
+	padding-left: 4px;
+	border-radius: 4px;
+}
+.inline-code {
+	display: inline-block;
+}
+
+	</style>
+	<script>
+
+$(function() {
+
+	var slide = 0;
+	var SLIDE_COUNT = $('.slide').length;
+	var intro = $('#intro');
+	var main = $('#main-container');
+	var onMain = true;
+	var hosted = $('#hosted');
+	var time = $('#time');
+	var isHosted = true;
+
+	main.hide();
+	time.hide();
+	$('.slide[data-slide=0]').show();
+
+	setInterval(function() {
+
+		if(isHosted) {
+
+			hosted.fadeOut(500, function() { time.fadeIn(500);});
+		}
+		else {
+
+			time.fadeOut(500, function() { hosted.fadeIn(500);});
+		}
+
+		isHosted = !isHosted;
+	}, 5000);
+
+	function forward() {
+
+		if(onMain) {
+
+			intro.fadeOut(1000, function() {
+				main.fadeIn(200);
+			})
+			onMain = false;
+			return;
+		}
+
+		var old = slide;
+		
+		if(slide < SLIDE_COUNT - 1) {
+
+			slide++;
+		}
+		else {
+
+			slide = 0;
+		}
+		$('.slide[data-slide=' + old + ']').fadeOut(200, function() {
+
+			$('.slide[data-slide=' + slide + ']').fadeIn();
+		});
+	}
+
+	function backward() {
+
+		var old = slide;
+		
+		if(slide > 0) {
+
+			slide--;
+		}
+		else {
+
+			slide = 0;
+			onMain = true;
+			main.hide();
+			intro.show();
+			return;
+		}
+		$('.slide[data-slide=' + old + ']').fadeOut(200, function() {
+			
+			$('.slide[data-slide=' + slide + ']').fadeIn();
+		});
+	}
+
+	$(document).keypress(function(event) {
+
+		if(event.keyCode == 113) {
+
+			forward();
+		}
+		if(event.keyCode == 112) {
+
+			backward();
+		}
+	});
+});
+
+	</script>
+</head>
+<body>
+	<div id="intro">
+		<table style="width:100%;height:100%;">
+			<tr>
+				<td align="center" valign="center">
+					<div><img src="logo.png" style="width:500px;" /></div>
+					<div style="font-size:6.5em;font-weight:bold;">Python Workshop</div>
+					<div style="font-size:2.25em;" id="hosted">Hosted by the Association for Computing Machinery</div>
+					<div style="font-size:2.25em;" id="time">Workshop will begin at 6:00 PM</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div id="main-container">
+		<div id="left-container" oncontextmenu="return true;">
+			<div class="slide" data-slide="0">
+				<h1>What is Python?</h1>
+				<p><b>Python</b> is an interpreted, object-oriented, high-level programming language with highly dynamic semantics. It is used by millions of programmers worldwide to create enterprise-level applications and simple scripts.</p>
+				<p>Notable Features of Python:</p>
+				<ul>
+					<li>Easy to read syntax</li>
+					<li>Simple debugging process</li>
+					<li>Built-in data structures and dynamic typing and binding</li>
+					<li>Wide selection libraries from image processing to web scraping</li>
+					<li>Large and active community of developers</li>
+				</ul>
+				<br/>
+				<img class="centered-img" src="logo0.png" width="80%" />
+			</div>
+			<div class="slide" data-slide="1">
+				<h1>Who uses Python?</h1>
+				<p>Python is used by numerous companies and organizations:</p>
+				<ul>
+					<li><b>NASA</b> uses Python to model the motion of planets.</li>
+					<li><b>Blender</b>, a 3D modeling tool, includes a Python interpreter for drawing and manipulating 3D objects.</li>
+					<li><b>Civilization IV</b> by Faraxis, a turn-based RTS, uses Python for modding the base game.</li>
+					<li><b>Google</b>'s App Engine, its core search algorithms, build systems, core analysis tools, and numerous open source libraries all use Python.</li>
+					<li>The <b>Dropbox</b> client is written in Python.</li>
+					<li><b>Spotify</b>'s web API, data analytics tools, payment system, and label content management system are written in Python.</li>
+					<li>... and many more</li>
+				</ul>
+				<br/>
+				<table>
+					<tr>
+						<td align="center" style="width:40%;"><img src="google1.png" style="width: 100%" /></td>
+						<td align="center" style="width:40%;"><img src="blender1.png" style="width: 100%"/></td>
+						<td align="center" style="width:20%;"><img src="dropbox1.png" style="width: 100%"/></td>
+					</tr>
+					<tr>
+						<td align="center" style="width:33%;"><img src="nasa1.png" style="width: 60%"/></td>
+						<td align="center" style="width:33%;"><img src="civ1.png" style="width: 80%"/></td>
+						<td align="center" style="width:33%;"><img src="spotify1.jpg" style="width: 100%"/></td>
+					</tr>
+				</table>
+			</div>
+			<div class="slide" data-slide="2">
+				<h1>Popular Libraries</h1>
+				<div style="display:flex">
+					<div style="width:50%">
+						<p>Graphical User Interfaces:</p>
+						<ul>
+							<li>Tkinter</li>
+							<li>wxWidgets</li>
+							<li>Qt</li>
+						</ul>
+						<p>Web Scraping:</p>
+						<ul>
+							<li>Scrapy</li>
+							<li>Beautiful Soup 4</li>
+						</ul>
+						<p>Data Science:</p>
+						<ul>
+							<li>Pandas</li>
+							<li>Numpy</li>
+							<li>Scipy</li>
+							<li>Matplotlib</li>
+						</ul>
+						<p>Web Development:</p>
+						<ul>
+							<li>Django</li>
+							<li>Flask</li>
+							<li>Requests</li>
+						</ul>
+						<p>Penetration Testing:</p>
+						<ul>
+							<li>Scapy</li>
+							<li>ftplib</li>
+						</ul>
+					</div>
+					<div style="width:50%">
+						<p>Application Scripting:</p>
+						<ul>
+							<li>Maya</li>
+							<li>Blender</li>
+						</ul>
+						<p>Machine Learning:</p>
+						<ul>
+							<li>Sci-kit</li>
+							<li>Tensorflow</li>
+							<li>Keras</li>
+							<li>Caffe</li>
+						</ul>
+						<p>Image Processing:</p>
+						<ul>
+							<li>OpenCV</li>
+							<li>Python Imaging Library</li>
+							<li>Pillow</li>
+						</ul>
+						<p>Game Development:</p>
+						<ul>
+							<li>Pygame</li>
+							<li>Pyglet</li>
+							<li>Cocos2d</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="slide" data-slide="3">
+				<h1>Comparison to other Programming Languages</h1>
+				<p>Python has several major differences to traditional languages.</p>
+				<ul>
+					<li>Types do not need to be specified when declaring variables. <span class="inline-code">a = 5</span> is valid syntax, <span class="inline-code">int a = 5</span> is <b>not</b> valid syntax.</li>
+					<li>Identation levels are meaningful. In C++/Java, blocks of code are defined by curly braces <span class="inline-code">{}</span>, whereas in Python identation levels define a block of code.</li>
+					<li>Semicolons <span class="inline-code">;</span> are optional.</li>
+					<li>Python is explicit rather than implicit. For example, numbers must be explicitly coverted to strings before they can be concatenated with another string.</li>
+					<li>Everything is an object, including numbers, strings, lists, functions, and classes.</li>
+				</ul>
+				<br/>
+				<div style="display:flex">
+					<div style="width:50%;padding:5px;">
+						<p align="center">Java code</p>
+<pre style="font-size:17px;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">public class Main {
+   public static void main(String[] args) {
+      System.out.println(fib(6));
+   }
+   public static int fib(int n) {
+      if(n <= 1) {
+         return 1;
+      }
+      return fib(n - 2) + fib(n - 1);
+   }
+}
+</pre>
+<p style="font-size:0.75em;">Check it out: try typing in <span class="inline-code">import this</span> into your Python interpreter.</p>
+					</div>
+					<div style="width:50%;padding:5px;">
+						<p align="center">Python code</p>
+<pre style="font-size:17px;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;">def fib(n):
+   if n <= 1:
+      return 1
+   return fib(n - 2) + fib(n - 1)
+print(fib(6))
+</pre>
+					</div>
+				</div>
+			</div>
+			<div class="slide" data-slide="4">
+				<h1>Variable Assignment and Numbers</h1>
+				<p>To declare a variable and assign it a value, simply type the name of the variable, then the variable assignment operator <span class="inline-code">=</span>, and then the value of the variable.</p>
+				<pre>x = 5</pre>
+				<p>Python supports the basic number types: <b>int</b>, for integers, and <b>float</b>, for real numbers.</p>
+				<p>To print an expression to the console, use the built-in <span class="inline-code">print()</span> function.</p>
+				<pre>x = 5.4
+print(x) # prints 5.4 to the console</pre>
+				<p>Python supports all of the basic math operations.</p>
+<pre>a = 5 + 5 # addition
+b = 10 - 5 # subtraction
+c = 3 * 9 # multiplication
+d = 5 / 8 # division
+e = 5 % 2 # modulo
+f = 2 ** 3 # exponetiation
+g = 8 // 3 # integer division
+</pre>
+			</div>
+			<div class="slide" data-slide="5">
+				<h1>Strings</h1>
+				<p>Strings are initialized using single <span class="inline-code">''</span> or double quotes <span class="inline-code">""</span>.</p>
+				<table>
+					<tr>
+						<td><b>Operation</b></td>
+						<td><b>Code</b></td>
+						<td><b>Output</b></td>
+					</tr>
+					<tr>
+						<td>Concatenation</td>
+						<td><span class="inline-code">"Oscar" + "Reyes"</span></td>
+						<td><span class="inline-code">"OscarReyes"</span></td>
+					</tr>
+					<tr>
+						<td>Indexing</td>
+						<td><span class="inline-code">"Oscar"[3]</span></td>
+						<td><span class="inline-code">"a"</span></td>
+					</tr>
+					<tr>
+						<td>Reverse Indexing</td>
+						<td><span class="inline-code">"Oscar".index("a")</span></td>
+						<td><span class="inline-code">3</span></td>
+					</tr>
+					<tr>
+						<td>Slicing</td>
+						<td><span class="inline-code">"Oscar"[1:3]</span></td>
+						<td><span class="inline-code">"sc"</span></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><span class="inline-code">"Oscar"[:2]</span></td>
+						<td><span class="inline-code">"Os"</span></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><span class="inline-code">"Oscar"[3:]</span></td>
+						<td><span class="inline-code">"ar"</span></td>
+					</tr>
+					<tr>
+						<td>Reversal</td>
+						<td><span class="inline-code">"Oscar"[::-1]</span></td>
+						<td><span class="inline-code">"racsO"</span></td>
+					</tr>
+					<tr>
+						<td>Membership</td>
+						<td><span class="inline-code">"Os" in "Oscar"</span></td>
+						<td><span class="inline-code">True</span></td>
+					</tr>
+					<tr>
+						<td>Length</td>
+						<td><span class="inline-code">len("Oscar")</span></td>
+						<td><span class="inline-code">5</span></td>
+					</tr>
+					<tr>
+						<td>Formatting</td>
+						<td><span class="inline-code">"{:,}".format(1234567890}</span></td>
+						<td><span class="inline-code">"1,234,567,890"</span></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><span class="inline-code">"{:.2f}".format(89.23749}</span></td>
+						<td><span class="inline-code">"89.23"</span></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><span class="inline-code">"{:>10}".format("Oscar"}</span></td>
+						<td><span class="inline-code">"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Oscar"</span></td>
+					</tr>
+				</table>
+			</div>
+			<div class="slide" data-slide="6">
+				<h1>User Input</h1>
+				<p>User input is collected via the built-in <span class="inline-code">input()</span> function.</p>
+<pre>num = input("Enter a number: ")
+</pre>
+				<p>All input is read as a string. To convert to a number, use <span class="inline-code">int()</span> or <span class="inline-code">float()</span>.</p>
+<pre>a = int(num)
+b = float(num)
+</pre>
+			</div>
+			<div class="slide" data-slide="7">
+				<h1>Lists</h1>
+				<p>In Python, a <b>list</b> is a dynamically-sized, ordered collection that can hold any type of object.</p>
+				<table>
+					<tr>
+						<td><b>Operation</b></td>
+						<td><b>Code</b></td>
+						<td><b>Output</b></td>
+					</tr>
+					<tr>
+						<td>Creation</td>
+						<td><span class="inline-code">a = []</span></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>Appending</td>
+						<td><span class="inline-code">["a", "b", "c", "d"].append("e")</span></td>
+						<td><span class="inline-code">["a", "b", "c", "d", "e"]</span></td>
+					</tr>
+					<tr>
+						<td>Adding</td>
+						<td><span class="inline-code">["a", "b", "c", "d"] + ["e", "f"]</span></td>
+						<td><span class="inline-code">["a", "b", "c", "d", "e", "f"]</span></td>
+					</tr>
+					<tr>
+						<td>Indexing</td>
+						<td><span class="inline-code">["a", "b", "c", "d"][2]</span></td>
+						<td><span class="inline-code">"c"</span></td>
+					</tr>
+					<tr>
+						<td>Reverse Indexing</td>
+						<td><span class="inline-code">["a", "b", "c", "d"].index("c")</span></td>
+						<td><span class="inline-code">2</span></td>
+					</tr>
+					<tr>
+						<td>Slicing</td>
+						<td><span class="inline-code">["a", "b", "c", "d"][1:3]</span></td>
+						<td><span class="inline-code">["b", "c"]</span></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><span class="inline-code">["a", "b", "c", "d"][:2]</span></td>
+						<td><span class="inline-code">["a", "b"]</span></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><span class="inline-code">["a", "b", "c", "d"][2:]</span></td>
+						<td><span class="inline-code">["c", "d"]</span></td>
+					</tr>
+					<tr>
+						<td>Reversal</td>
+						<td><span class="inline-code">["a", "b", "c", "d"][::-1]</span></td>
+						<td><span class="inline-code">["d", "c", "b", "a"]</span></td>
+					</tr>
+					<tr>
+						<td>Membership</td>
+						<td><span class="inline-code">"b" in ["a", "b", "c", "d"]</span></td>
+						<td><span class="inline-code">True</span></td>
+					</tr>
+					<tr>
+						<td>Length</td>
+						<td><span class="inline-code">len(["a", "b", "c", "d"])</span></td>
+						<td><span class="inline-code">4</span></td>
+					</tr>
+				</table>
+			</div>
+			<div class="slide" data-slide="8">
+				<h1>Dictionaries</h1>
+				<p>In Python, a <b>dictionary</b> is a dynamically-sized, unordered collection that stores key-value pairs.</p>
+				<table>
+					<tr>
+						<td><b>Operation</b></td>
+						<td><b>Code</b></td>
+						<td><b>Output</b></td>
+					</tr>
+					<tr>
+						<td>Creation</td>
+						<td><span class="inline-code">a = {}</span></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>Adding</td>
+						<td><span class="inline-code">{}["cows"] = 8</span></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>Accessing</td>
+						<td><span class="inline-code">{"cows": 8}["cows"]</span></td>
+						<td><span class="inline-code">8</span></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><span class="inline-code">{"cows": 8}.get("cows", 10)</span></td>
+						<td><span class="inline-code">8</span></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><span class="inline-code">{"cows": 8}.get("sheep", 10)</span></td>
+						<td><span class="inline-code">10</span></td>
+					</tr>
+					<tr>
+						<td>Membership</td>
+						<td><span class="inline-code">"cows" in {"cows": 8}</span></td>
+						<td><span class="inline-code">True</span></td>
+					</tr>
+					<tr>
+						<td>Length</td>
+						<td><span class="inline-code">len({"cows": 8, "pigs": 4})</span></td>
+						<td><span class="inline-code">2</span></td>
+					</tr>
+				</table>
+			</div>
+			<div class="slide" data-slide="9">
+				<h1>Loops</h1>
+				<p>Python supports both <b>for loops</b> and <b>while loops</b></p>
+<p>Looping through the numbers 0 to 9:
+<pre>for i in range(10):
+   print(i)
+</pre>
+<p>Using a while loop:</p>
+<pre>i = 0
+while True:
+   print(i)
+   i += 1
+</pre>
+<p>Looping through a list:</p>
+<pre>animals = ['cow', 'pig', 'duck', 'cat']
+for animal in animals:
+   print(animal)
+</pre>
+<p>Looping through a list with <span class="inline-code">enumerate()</span>:</p>
+<pre>animals = ['cow', 'pig', 'duck', 'cat']
+for i, animal in enumerate(animals):
+   print(i, "\t", animal)
+</pre>
+			</div>
+			<div class="slide" data-slide="10">
+				<h1>If Statements</h1>
+				<p>Python supports the <b>boolean types</b> <span class="inline-code">True</span> and <span class="inline-code">False</span>.</p>
+<pre>a = True
+b = False
+</pre>
+				<p>Python also supports <b>if/elif/else statements</b>.</p>
+<pre>a = 9
+if a > 9:
+   print("greater than 9")
+elif a > 5:
+   print("greater than 5")
+else:
+   print("less then or equal to 5")
+</pre>
+				<p>Python also supports the three basic <b>boolean operators</b>, <span class="inline-code">and</span>, <span class="inline-code">or</span>, and <span class="inline-code">not</span>.</p>
+<pre>a = 9
+b = 14
+
+c = a >= 9 and b > 12 #True
+d = a >= 9 or b > 12 #True
+e = not a == 9 #False
+</pre>
+			</div>
+			<div class="slide" data-slide="11">
+				<h1>Functions</h1>
+				<p>To declare a function, use the keyword <span class="inline-code">def</span>. Like any other objects in Python, with functions the type is not declared.</p>
+<pre>def func1(a, b):
+   if a > 3:
+      return a**2 + b/3
+   else:
+      return (a - 5)/b
+</pre>
+			</div>
+			<div class="slide" data-slide="12">
+				<h1>Modules</h1>
+				<p>A <b>module</b> is simply a Python file. Modules are the basic unit of code organization in Python projects.</p>
+				<p>Like most languages, Python includes a <b>standard library</b> which contains many useful APIs which can be imported as modules.</p>
+				<p>One of the most commonly used modules is the math module. To import a module, use the <span class="inline-code">import</span> statement followed by the module name.</p>
+<pre>import math
+
+print(math.sqrt(10)) #square root
+print(math.floor(10.384)) #floor
+print(math.log(300, 12)) #log base 12
+print(math.pi) #Pi constant: 3.141592...
+</pre>
+			</div>
+		</div>
+		<div id="right-container">
+			<iframe src="http://rextester.com/l/python3_online_compiler">
+			</iframe>
+		</div>
+	</div>
+</body>
+</html>
