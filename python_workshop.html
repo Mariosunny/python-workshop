@@ -19,6 +19,13 @@ h1 {
 	margin-top: 0.2em;
 	margin-bottom: 0.4em;
 	font-size: 2.5em;
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
 }
 pre {
 	font-family: Courier;
@@ -168,22 +175,32 @@ $(function() {
 		});
 	}
 
-	$(document).keypress(function(event) {
+	$(document).mousedown(function(event) {
 
-		if(event.keyCode == 113) {
-
-			forward();
+		if(onMain) {
+			click(event);
 		}
-		if(event.keyCode == 112) {
+	});
 
-			backward();
-		}
+	function click(event) {
+	    switch (event.which) {
+	        case 1:
+	            forward();
+	            break;
+	        case 3:
+	            backward();
+	            break;
+	    }
+	}
+
+	$("h1").mousedown(function(event) {
+	    click(event);
 	});
 });
 
 	</script>
 </head>
-<body>
+<body oncontextmenu="return false;">
 	<div id="intro">
 		<table style="width:100%;height:100%;">
 			<tr>
@@ -197,7 +214,7 @@ $(function() {
 		</table>
 	</div>
 	<div id="main-container">
-		<div id="left-container" oncontextmenu="return true;">
+		<div id="left-container">
 			<div class="slide" data-slide="0">
 				<h1>What is Python?</h1>
 				<p><b>Python</b> is an interpreted, object-oriented, high-level programming language with highly dynamic semantics. It is used by millions of programmers worldwide to create enterprise-level applications and simple scripts.</p>
